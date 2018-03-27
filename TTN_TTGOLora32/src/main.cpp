@@ -25,14 +25,16 @@ SSD1306 display (OLED_I2C_ADDR, OLED_SDA, OLED_SCL);
  * TODO: Change the following keys
  * NwkSKey: network session key, AppSKey: application session key, and DevAddr: end-device address
  *************************************/
-static u1_t NWKSKEY[16] = { .... };  // Paste here the key in MSB format
+static u1_t NWKSKEY[16] = { 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };  // Paste here the key in MSB format
 
-static u1_t APPSKEY[16] = { .... };  // Paste here the key in MSB format
+static u1_t APPSKEY[16] = { 0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10, 0xfe, 0xdc, 0xba, 0x98, 0x76, 0x54, 0x32, 0x10 };  // Paste here the key in MSB format
 
-static u4_t DEVADDR = 0x00000000;   // Put here the device id in hexadecimal form.
+static u4_t DEVADDR = 0x1234abcd;   // Put here the device id in hexadecimal form.
+
+static const u1_t PROGMEM DEVEUI[8]={ 0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef };
 
 void os_getArtEui (u1_t* buf) { }
-void os_getDevEui (u1_t* buf) { }
+void os_getDevEui (u1_t* buf) { memcpy_P(buf, DEVEUI, 8); }
 void os_getDevKey (u1_t* buf) { }
 
 static osjob_t sendjob;
